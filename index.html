@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>武鸣校区 · 鸟瞰与卫星地图</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main id="app">
+      <header class="topbar">
+        <button id="reset" class="back" aria-label="回到校园全景" title="回到校园全景">‹</button>
+        <div class="title">
+          <h1>3D 数字地图</h1>
+          <span>广西民族大学 · 武鸣校区</span>
+        </div>
+        <button id="about" class="about" aria-label="地图说明">i</button>
+      </header>
+      <section class="search-area">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10" cy="10" r="6.5" />
+            <path d="m15 15 5 5" /></svg
+          ><input
+            id="search"
+            type="search"
+            placeholder="搜地点、查楼栋、找服务…"
+            aria-label="搜索地点"
+            autocomplete="off"
+          /><button id="campus-info" class="campus-name">武鸣校区 <span>⌄</span></button>
+          <div id="results" class="results" hidden></div>
+        </div>
+        <div class="service-status">
+          <span>♧</span><span id="status-text">位置服务 · 当前共 34 处地点</span>
+        </div>
+      </section>
+      <nav class="view-modes" aria-label="地图视角">
+        <button data-view="bird" class="active" aria-pressed="true">鸟瞰 3D</button
+        ><button data-view="overhead" aria-pressed="false">正上方</button
+        ><button data-view="plan" aria-pressed="false">平面图</button
+        ><button data-view="google" aria-pressed="false">Google 卫星</button>
+      </nav>
+      <section id="google-layer" aria-label="Google 在线卫星地图" hidden>
+        <div class="google-toolbar">
+          <div>
+            <strong>Google 卫星对照</strong>
+            <p id="google-status" aria-live="polite">正在检测 Google 地图连接…</p>
+          </div>
+          <a id="google-open" target="_blank" rel="noopener noreferrer">在 Google 地图中打开 ↗</a>
+        </div>
+        <div id="google-placeholder">
+          <span class="satellite-symbol">◎</span>
+          <h2>广西民族大学武鸣校区</h2>
+          <p id="google-placeholder-text">卫星图由 Google 在线提供，正在连接。</p>
+          <button id="google-retry">重新连接</button><button id="google-back">返回鸟瞰</button>
+        </div>
+        <iframe
+          id="google-frame"
+          title="Google 地图：广西民族大学武鸣校区卫星影像"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          hidden
+        ></iframe>
+        <p class="google-note">三维校园模型按参考图绘制，尚未与 Google 卫星影像配准。</p>
+      </section>
+      <section id="scene" aria-label="广西民族大学武鸣校区三维地图"></section>
+      <div class="map-tools" aria-label="地图工具">
+        <button id="labels" class="tool active" aria-label="显示或隐藏标签" aria-pressed="true">
+          <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z" /></svg><span>大楼标签</span>
+        </button>
+        <button id="tour" class="tool" aria-label="校园巡游" aria-pressed="false">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="10" r="7" />
+            <circle cx="12" cy="10" r="2" />
+            <path d="M5 18c0 4 14 4 14 0" /></svg
+          ><span>校园巡游</span>
+        </button>
+        <button id="view-toggle" class="tool" aria-label="切换二维地图">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="13" height="13" rx="1" />
+            <path d="M8 18v3h13V8h-3" /></svg
+          ><span id="view-label">二维</span>
+        </button>
+        <button id="reference" class="tool" aria-label="查看参考图">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="16" rx="2" />
+            <circle cx="8" cy="9" r="1" />
+            <path d="m4 17 5-5 4 4 3-4 4 5" /></svg
+          ><span>布局图</span>
+        </button>
+      </div>
+      <aside id="detail" class="detail" aria-live="polite" hidden>
+        <button id="close-detail" class="close" aria-label="关闭详情">×</button
+        ><span id="detail-type" class="eyebrow">校园地点</span>
+        <h2 id="detail-title">选择一处地点</h2>
+        <p id="detail-text"></p>
+        <div id="detail-meta" class="meta"></div>
+      </aside>
+      <div class="zoom-tools">
+        <button id="zoom-in" aria-label="放大地图">＋</button
+        ><button id="zoom-out" aria-label="缩小地图">−</button>
+      </div>
+      <div class="view-caption">
+        <strong id="view-caption-title">鸟瞰 3D</strong
+        ><span id="view-caption-text">高空斜俯视 · 可旋转、放大</span>
+      </div>
+      <div class="compass" aria-label="参考图上方"><i></i><span>图上</span></div>
+      <div class="hint">拖动旋转 · 滚轮缩放 · 点击地点</div>
+      <footer class="bottom-bar">
+        <button id="categories">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" /></svg
+          ><span>地点分类</span></button
+        ><button id="overview" class="overview">
+          <svg viewBox="0 0 24 24"><path d="m12 3 8 8h-5v10H9V11H4z" /></svg
+          ><span>回到鸟瞰</span></button
+        ><button id="services">
+          <svg viewBox="0 0 24 24">
+            <rect x="4" y="7" width="16" height="14" rx="3" />
+            <path d="M12 3v4M1 11v6m22-6v6M8 12v3m8-3v3M9 18h6" /></svg
+          ><span>位置服务</span>
+        </button>
+      </footer>
+      <dialog id="places-dialog" class="sheet">
+        <button id="close-places" class="close" aria-label="关闭地点列表">×</button
+        ><span class="eyebrow">校园导览</span>
+        <h2 id="places-title">地点分类</h2>
+        <nav class="filters">
+          <button class="filter active" data-filter="all">全部</button
+          ><button class="filter" data-filter="study">教学</button
+          ><button class="filter" data-filter="life">生活</button
+          ><button class="filter" data-filter="sport">运动</button
+          ><button class="filter" data-filter="gate">出入口</button>
+        </nav>
+        <div id="places-list"></div>
+      </dialog>
+      <dialog id="about-dialog">
+        <button id="close-about" class="close" aria-label="关闭说明">×</button
+        ><span class="eyebrow">广西民族大学 · 武鸣校区</span>
+        <h2>校园三维导览</h2>
+        <p>依据校园参考资料手工安排地点，以三维示意方式展示楼群与景观。</p>
+        <p>
+          楼体、立面、林木与地形为示意建模，不代表真实高度或测绘结果。地点名称和服务信息依据参考图，以学校现场信息为准。校园巡游展示三维模型。Google
+          卫星入口直接打开 Google
+          在线地图；未取得并配准卫星数据前，不把三维示意模型称为卫星实景模型。
+        </p>
+      </dialog>
+      <dialog id="reference-dialog">
+        <button id="close-reference" class="close" aria-label="关闭原图">×</button>
+        <h2>校园布局示意</h2>
+        <p>根据校园地点信息程序绘制的布局示意，可查看各地点的相对位置。</p>
+        <img src="./assets/layout-overview.svg" alt="程序绘制的校园布局示意图" />
+      </dialog>
+    </main>
+    <script type="importmap">
+      { "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }
+    </script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
