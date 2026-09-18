@@ -2,7 +2,7 @@
 
 使用 Node.js 20 或更新版本。修改后运行 `npm run check` 和 `npm test`，再用浏览器检查电脑和手机布局。
 
-地点和几何位于 public/app.js：X/Z 函数把示意图像素转换为场景坐标；area/rect/register 定义地点；architecture/courtyard 定义楼体；setView 定义视角。请为新增地点记录来源与核验状态，未经核实的名称和高度保持示意标注。
+地点、道路、湖泊和林地区域位于 public/campus-layout.js；三维建筑生成位于 public/campus-scene.js；搜索、标签和视角交互位于 public/app.js。修改布局后运行 `npm run layout` 更新二维布局索引。请为新增地点记录来源与核验状态，未经核实的名称和高度保持示意标注。
 
 界面为 public/index.html 和 public/style.css。服务端为 server.cjs，测试为 test/server.test.cjs。Three.js 文件在 public/vendor/，升级时同步版本说明与许可证。
 

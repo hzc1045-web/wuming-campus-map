@@ -1,6 +1,6 @@
 {
   "name": "wuming-campus-map",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Interactive schematic 3D campus map of GXUN Wuming campus.",
   "license": "MIT",
   "private": true,
@@ -12,7 +12,8 @@
     "start": "node server.cjs",
     "open": "node scripts/start.cjs",
     "test": "node --test",
-    "check": "node --check public/app.js && node --check server.cjs && node --check scripts/start.cjs"
+    "check": "node --check public/app.js && node --check public/campus-layout.js && node --check public/campus-scene.js && node --check server.cjs && node --check scripts/start.cjs",
+    "layout": "node scripts/build-layout.mjs"
   },
   "files": [
     "public",

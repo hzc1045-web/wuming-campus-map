@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
     <title>武鸣校区 · 鸟瞰与卫星地图</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./style.css?v=reference-20260918" />
   </head>
   <body>
     <main id="app">
@@ -32,7 +33,7 @@
           <div id="results" class="results" hidden></div>
         </div>
         <div class="service-status">
-          <span>♧</span><span id="status-text">位置服务 · 当前共 34 处地点</span>
+          <span>♧</span><span id="status-text">参考图导览 · 正在加载地点</span>
         </div>
       </section>
       <nav class="view-modes" aria-label="地图视角">
@@ -142,7 +143,7 @@
         <button id="close-about" class="close" aria-label="关闭说明">×</button
         ><span class="eyebrow">广西民族大学 · 武鸣校区</span>
         <h2>校园三维导览</h2>
-        <p>依据校园参考资料手工安排地点，以三维示意方式展示楼群与景观。</p>
+        <p>按本次提供的校园导览图重绘：蓝顶楼群、校园湖、中轴广场、林地与体育区。</p>
         <p>
           楼体、立面、林木与地形为示意建模，不代表真实高度或测绘结果。地点名称和服务信息依据参考图，以学校现场信息为准。校园巡游展示三维模型。Google
           卫星入口直接打开 Google
@@ -152,13 +153,13 @@
       <dialog id="reference-dialog">
         <button id="close-reference" class="close" aria-label="关闭原图">×</button>
         <h2>校园布局示意</h2>
-        <p>根据校园地点信息程序绘制的布局示意，可查看各地点的相对位置。</p>
+        <p>按本次参考图重绘的布局索引，与三维地图使用相同地点数据。</p>
         <img src="./assets/layout-overview.svg" alt="程序绘制的校园布局示意图" />
       </dialog>
     </main>
     <script type="importmap">
       { "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/" } }
     </script>
-    <script type="module" src="./app.js"></script>
+    <script type="module" src="./app.js?v=reference-20260918"></script>
   </body>
 </html>

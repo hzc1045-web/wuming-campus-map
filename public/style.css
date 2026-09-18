@@ -351,15 +351,20 @@ dialog p {
   pointer-events: auto;
   display: flex;
   align-items: center;
-  flex-direction: column;
-  gap: 4px;
+  flex-direction: row;
+  gap: 5px;
+  padding: 4px 9px 4px 5px;
+  border: 1px solid #8ac3ce;
+  background: #f8fff9ed;
+  border-radius: 18px;
+  box-shadow: 0 2px 6px #28585418;
   cursor: pointer;
   white-space: nowrap;
   user-select: none;
 }
 .map-label .pin {
-  width: 26px;
-  height: 26px;
+  width: 18px;
+  height: 18px;
   display: grid;
   place-items: center;
   color: #fff;
@@ -378,7 +383,7 @@ dialog p {
   stroke-linecap: round;
 }
 .map-label .label-name {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: #314852;
   text-shadow:
@@ -388,13 +393,21 @@ dialog p {
 }
 .map-label.featured .label-name,
 .map-label.selected .label-name {
-  padding: 5px 12px;
+  padding: 0;
   border-radius: 25px;
   background: #fff;
-  border: 2px solid #35b8d9;
+  border: 0;
   color: #3099b7;
   text-shadow: none;
-  box-shadow: 0 2px 8px #1d394b14;
+  box-shadow: none;
+}
+.map-label.selected {
+  border: 2px solid #178cae;
+  background: white;
+}
+.map-label.featured {
+  background: white;
+  border-color: #37abc2;
 }
 .map-label.minor .pin {
   width: 17px;
@@ -852,5 +865,49 @@ dialog p + p {
   }
   .hint {
     display: none;
+  }
+}
+
+/* Compact controls leave the campus unobstructed on phones. */
+@media (max-width: 720px) {
+  .map-tools {
+    left: 14px;
+    right: 14px;
+    top: 278px;
+    width: auto;
+    display: flex;
+    padding: 4px;
+    border-radius: 16px;
+  }
+  .tool {
+    flex: 1;
+    min-height: 47px;
+    padding: 5px 2px;
+    font-size: 9px;
+    gap: 2px;
+  }
+  .tool + .tool {
+    border-top: 0;
+    border-left: 1px solid #e5eaec;
+  }
+  .tool svg {
+    width: 20px;
+    height: 20px;
+  }
+  .map-label {
+    padding: 4px 7px;
+  }
+  .map-label .pin {
+    display: none;
+  }
+  .map-label .label-name,
+  .map-label.featured .label-name,
+  .map-label.selected .label-name {
+    font-size: 9px;
+    padding: 0;
+  }
+  .view-caption span {
+    font-size: 10px;
+    max-width: 280px;
   }
 }

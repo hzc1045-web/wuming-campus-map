@@ -35,7 +35,7 @@ function checkGoogle() {
       'https://www.google.com/maps/',
       {
         method: 'HEAD',
-        headers: { 'User-Agent': 'WumingCampusMap/0.1.0' },
+        headers: { 'User-Agent': 'WumingCampusMap/0.2.0' },
       },
       (response) => {
         response.resume();
@@ -82,7 +82,7 @@ function createServer({ publicDir = PUBLIC_DIR, googleProbe = checkGoogle } = {}
     if (pathname === '/api/app-info') {
       send(
         200,
-        JSON.stringify({ name: 'wuming-campus-map', version: '0.1.0' }),
+        JSON.stringify({ name: 'wuming-campus-map', version: '0.2.0' }),
         MIME_TYPES['.json'],
       );
       return;

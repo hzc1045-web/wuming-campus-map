@@ -47,7 +47,7 @@ test('serves the generated layout drawing', async () => {
   const image = await request('/assets/layout-overview.svg');
   assert.equal(image.status, 200);
   assert.match(image.headers['content-type'], /image\/svg\+xml/);
-  assert.match(image.body, /南大门/);
+  assert.match(image.body, /校大门/);
 });
 test('HEAD returns headers without a body', async () => {
   const res = await request('/app.js', 'HEAD');
